@@ -81,6 +81,7 @@ def run_bot():
 		- Starts a polling loop.
 	Returns: None: Prints a startup message to the console and starts the bot.
 	"""
+	print("TELEGRAM_BOT_TOKEN:", TELEGRAM_BOT_TOKEN)
 	app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
 	
 	app.add_handler(CommandHandler("start", start))
