@@ -1,9 +1,10 @@
 import logging
+import os
 from datetime import datetime
 
 import requests
 
-from config import API_KEY
+API_KEY = os.getenv("API_KEY")
 
 logging.basicConfig(filename="app.log",
                     level=logging.INFO,
