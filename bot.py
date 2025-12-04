@@ -55,11 +55,14 @@ async def weather(update: Update, context: ContextTypes.DEFAULT_TYPE):
 	Returns: None: Sends the weather forecast for the specified city
 	or an instruction, if no city was passed.
 	"""
+	user_id = update.message.from_user.id
+	
 	if context.args:
 		city = " ".join(context.args)
 		result = get_weather(city)
 		await update.message.reply_text(result)
 	else:
+		user_state[user_id] = "waiting_city"
 		await update.message.reply_text(
 			"Будь ласка, вкажіть місто. Приклад: /weather Київ")
 
