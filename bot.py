@@ -1,3 +1,5 @@
+import os
+
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, \
 	ContextTypes
@@ -6,6 +8,14 @@ from config import TELEGRAM_BOT_TOKEN
 from weather import get_weather
 
 user_state = {}
+
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+
+print("TELEGRAM_BOT_TOKEN:", TELEGRAM_BOT_TOKEN)  # 👈 це з’явиться у логах
+
+if not TELEGRAM_BOT_TOKEN:
+    print("❌ Змінна TELEGRAM_BOT_TOKEN не задана. Контейнер завершено.")
+    exit(1)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
