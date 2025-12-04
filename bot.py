@@ -91,14 +91,16 @@ def run_bot():
 		- Starts a polling loop.
 	Returns: None: Prints a startup message to the console and starts the bot.
 	"""
-	print("TELEGRAM_BOT_TOKEN:", TELEGRAM_BOT_TOKEN)
-	app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
+	try:
+		app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
 	
-	app.add_handler(CommandHandler("start", start))
-	app.add_handler(CommandHandler("help", help_command))
-	app.add_handler(CommandHandler("weather", weather))
-	app.add_handler(
-		MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-	
-	print("Бот запущено...")
-	app.run_polling()
+		app.add_handler(CommandHandler("start", start))
+		app.add_handler(CommandHandler("help", help_command))
+		app.add_handler(CommandHandler("weather", weather))
+		app.add_handler(
+			MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+		print("Бот запущено...")
+		app.run_polling()
+	except Exception as e:
+		print("❌ Помилка при запуску бота:", e)
+		exit(1)
