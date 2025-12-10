@@ -14,6 +14,8 @@ def get_currency(base: str = "USD", symbols: str = "EUR,UAH,PLN") -> str:
     Returns: str: formatted string with rates
     """
     API_KEY = os.getenv("API_KEY_CURR")
+    
+    print("DEBUG API_KEY:", API_KEY)
 
     if not API_KEY:
         return "❌ Не знайдено API ключ. Перевір Variables у Railway."
