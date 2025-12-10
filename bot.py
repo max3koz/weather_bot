@@ -6,6 +6,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, \
 
 from config import TELEGRAM_BOT_TOKEN
 from weather import get_weather
+from currency import get_currency
 
 user_state = {}
 
@@ -65,6 +66,25 @@ async def weather(update: Update, context: ContextTypes.DEFAULT_TYPE):
 		user_state[user_id] = "waiting_city"
 		await update.message.reply_text(
 			"Будь ласка, вкажіть місто. Приклад: /weather Київ")
+		
+
+async def currency(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Handler for the /currency command.
+    Args:
+        - update (telegram.Update): Object with data about the user's message.
+        - context (telegram.ext.ContextTypes.DEFAULT_TYPE): Execution context.
+    Returns: None: Sends exchange rates for selected currencies.
+    """
+    base = "USD"
+    symbols = "EUR,UAH,PLN"
+
+    if context.args:
+        # Якщо користувач передав аргументи: /currency EUR,UAH
+        symbols = ",".join(context.args)
+
+    result = get_currency(base, symbols)
+    await update.message.reply_text(result)
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -100,6 +120,7 @@ def run_bot():
 		app.add_handler(CommandHandler("start", start))
 		app.add_handler(CommandHandler("help", help_command))
 		app.add_handler(CommandHandler("weather", weather))
+		app.add_handler(CommandHandler("currency", currency))
 		app.add_handler(
 			MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 		print("Бот запущено...")
