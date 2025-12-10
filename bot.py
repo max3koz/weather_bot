@@ -43,7 +43,9 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 		"/start – привітання\n"
 		"/help – список команд\n"
 		"/weather – отримати погоду з подальшим вибором міста\n"
-		"/weather <назва міста> – отримати погоду у вказаному місті")
+		"/weather <назва міста> – отримати погоду у вказаному місті\n"
+		"/currency – отримати курси валют (за замовчуванням USD → EUR,UAH,PLN)\n"
+		"/currency EUR UAH – отримати курси для вибраних валют"	)
 
 
 async def weather(update: Update, context: ContextTypes.DEFAULT_TYPE):

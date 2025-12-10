@@ -9,12 +9,11 @@ API_KEY = os.getenv("API_KEY_CURR")  # ключ збережи у .env
 
 def get_currency(base: str = "USD", symbols: str = "EUR,UAH,PLN") -> str:
     """
-    Отримати курси валют через Currency Exchange API.
+    Get currency rates via the Currency Exchange API.
     Args:
-        base (str): базова валюта
-        symbols (str): список валют через кому
-    Returns:
-        str: форматований рядок з курсами
+    	- base (str): base currency
+    	- symbols (str): comma-separated list of currencies
+    Returns: str: formatted string with rates
     """
     url = f"https://api.currencyapi.com/v3/latest?base_currency={base}&currencies={symbols}"
     headers = {"apikey": API_KEY}
